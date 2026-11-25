@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMOS</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #080817;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
+.star {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(#a99bff 1px, transparent 1px),
+        radial-gradient(#ffb9e9 1px, transparent 1px);
+    background-size: 100px 100px, 150px 150px, 220px 220px;
+    background-position: 0 0, 40px 60px, 80px 30px;
+    animation: stars 30s linear infinite;
+}
+
+@keyframes stars {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100px); }
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background: rgba(10, 10, 30, 0.7);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #c7b8ff;
+    letter-spacing: 5px;
+}
+
+nav a {
+    color: #ddd;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #d7a6ff;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 20px;
+    background:
+        radial-gradient(circle at center,
+        rgba(100, 50, 160, 0.22),
+        transparent 65%);
+}
+
+.hero h1 {
+    font-size: clamp(60px, 12vw, 120px);
+    letter-spacing: 20px;
+    background: linear-gradient(90, #d7c3ff, #f7b6e6, #a7c5ff);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+    from { filter: drop-shadow(0 0 5px #9c73ff); }
+    to { filter: drop-shadow(0 0 25px #d88cff); }
+}
+
+.hero p {
+    color: #c5c1dc;
+    font-size: 18px;
+    margin: 20px 0 35px;
+    max-width: 600px;
+}
+
+.button {
+    display: inline-block;
+    padding: 14px 30px;
+    background: linear-gradient(90deg, #8056c9, #bd78d8);
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 25px #a76ce7;
+}
+
+.moon {
+    font-size: 80px;
+    margin-bottom: 15px;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    50% { transform: translateY(-20px); }
+}
+
+
+section {
+    padding: 100px 8%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 40px;
+    color: #d4c3ff;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #aaa7c5;
+    margin-bottom: 50px;
+}
+
+.planets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.planet-card {
+    background: rgba(25, 22, 48, 0.8);
+    border: 1px solid rgba(180, 150, 255, 0.15);
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: 0.4s;
+}
+
+.planet-card:hover {
+    transform: translateY(-10px);
+    border-color: #b58aff;
+    box-shadow: 0 0 25px rgba(145, 90, 230, 0.2);
+}
+
+.planet {
+    font-size: 70px;
+    display: block;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 15px rgba(180, 150, 255, 0.3));
+}
+
+.planet-card h3 {
+    color: #d9c8ff;
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.planet-card p {
+    color: #b6b2d1;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.tag {
+    display: inline-block;
+    background: rgba(150, 100, 220, 0.2);
+    color: #d7baff;
+    padding: 7px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+.facts {
+    background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(70, 35, 120, 0.15),
+        transparent
+    );
+}
+
+.fact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.fact {
+    padding: 30px;
+    border-left: 3px solid #aa81f5;
+    background: rgba(25, 20, 50, 0.5);
+    border-radius: 0 15px 15px 0;
+}
+
+.fact h3 {
+    color: #d4baff;
+    margin-bottom: 12px;
+}
+
+.fact p {
+    color: #c1bdd8;
+    line-height: 1.8;
+}
+
+.constellation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.constellation {
+    background: rgba(30, 25, 55, 0.8);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.constellation:hover {
+    background: rgba(65, 45, 100, 0.5);
+    transform: scale(1.03);
+}
+
+.constellation .symbol {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.constellation h3 {
+    color: #d6c4ff;
+    margin-bottom: 10px;
+}
+
+.constellation p {
+    color: #bdb9d5;
+    line-height: 1.7;
+}
+
+.moon-section {
+    text-align: center;
+    background: radial-gradient(
+        circle,
+        rgba(100, 80, 150, 0.2),
+        transparent 70%
+    );
+}
+
+.big-moon {
+    font-size: 100px;
+    display: block;
+    margin: 30px;
+    animation: float 5s ease-in-out infinite;
+}
+
+.moon-section p {
+    color: #c5c1dc;
+    max-width: 700px;
+    margin: 20px auto;
+    line-height: 1.8;
+}
+
+footer {
+    text-align: center;
+    padding: 35px;
+    border-top: 1px solid rgba(170, 140, 255, 0.2);
+    color: #9993bb;
+}
+
+footer span {
+    color: #c9aaff;
+}
+
+@media (max-width: 600px) {
+    nav {
+        padding: 15px;
+    }
+
+    nav a {
+        margin-left: 8px;
+        font-size: 11px;
+    }
+
+    .logo {
+        font-size: 18px;
+        letter-spacing: 3px;
+    }
+
+    .hero h1 {
+        letter-spacing: 8px;
+    }
+
+    section {
+        padding: 80px 6%;
+    }
+
+    .section-title {
+        font-size: 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<nav>
+    <div class="logo">COSMOS ✦</div>
+    <div>
+        <a href="#planetas">Planetas</a>
+        <a href="#universo">Universo</a>
+        <a href="#luna">La Luna</a>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="moon">🌙</div>
+
+    <h1>COSMOS</h1>
+
+    <a href="#planetas" class="button">Explorar universo ✦</a>
+</header>
+
+<section id="planetas">
+
+    <h2 class="section-title">El sistema solar</h2>
+
+    <p class="subtitle">
+        Ocho planetas, un Sol
+    </p>
+
+    <div class="planets">
+
+        <article class="planet-card">
+            <span class="planet">☿️</span>
+            <h3>Mercurio</h3>
+            <p>
+                El planeta más cercano al Sol.
+                Su superficie está llena de cráteres
+                y experimenta temperaturas extremas.
+            </p>
+            <span class="tag">Planeta rocoso</span>
+        </article>
+
+        <article class="planet-card">
+            <span class="planet">♀️</span>
+            <h3>Venus</h3>
+            <p>
+                Un mundo cubierto de nubes.
+                Es el planeta más caliente del sistema solar
+                debido a su densa atmósfera.
+            </p>
+            <span class="tag">Planeta rocoso</span>
+        </article>
+
+        <article class="planet-card">
+            <span class="planet">🌎</span>
+            <h3>Tierra</h3>
+            <p>
+                Nuestro hogar. El único mundo conocido
+                que alberga vida y posee agua líquida
+                abundante en su superficie.
+            </p>
+            <span class="tag">Nuestro hogar</span>
+        </article>
+
+        <article class="planet-card">
+            <span class="planet">🔴</span>
+            <h3>Marte</h3>
+            <p>
+                El planeta rojo. Tiene enormes volcanes,
+                antiguos valles y evidencia de agua
+                en su pasado.
+            </p>
+            <span class="tag">Planeta rocoso</span>
+        </article>
+
+        <article class="planet-card">
+            <span class="planet">🟠</span>
+            <h3>Júpiter</h3>
+            <p>
+                El planeta más grande. Posee tormentas gigantes,
+                muchas lunas y una atmósfera fascinante.
+            </p>
+            <span class="tag">Gigante gaseoso</span>
+        </article>
+
+        <article class="planet-card">
+            <span class="planet">🪐</span>
+            <h3>Saturno</h3>
+            <p>
+                Famoso por sus espectaculares anillos
+                formados por fragmentos de hielo,
+                roca y polvo.
+            </p>
+            <span class="tag">Gigante gaseoso</span>
+        </article>
+
+        <article class="planet-card">
+            <span class="planet">🔵</span>
+            <h3>Urano</h3>
+            <p>
+                Un planeta helado que gira prácticamente
+                de lado. Su atmósfera contiene
+                hidrógeno, helio y metano.
+            </p>
+            <span class="tag">Gigante helado</span>
+        </article>
+
+        <article class="planet-card">
+            <span class="planet">🔷</span>
+            <h3>Neptuno</h3>
+            <p>
+                Un mundo lejano, azul y frío,
+                conocido por sus fuertes vientos
+                y su atmósfera dinámica.
+            </p>
+            <span class="tag">Gigante helado</span>
+        </article>
+
+    </div>
+</section>
+
+<section id="universo" class="facts">
+
+    <h2 class="section-title">Misterios del universo</h2>
+
+    <p class="subtitle">
+        Hay cosas allá afuera que parecen sacadas de la ciencia ficción.
+    </p>
+
+    <div class="fact-grid">
+
+        <article class="fact">
+            <h3>🕳️ Agujeros negros</h3>
+            <p>
+                Son regiones del espacio donde la gravedad es tan intensa
+                que nada puede escapar una vez que cruza su horizonte
+                de eventos, ni siquiera la luz.
+            </p>
+        </article>
+
+        <article class="fact">
+            <h3>🌌 Nebulosas</h3>
+            <p>
+                Enormes nubes de gas y polvo cósmico.
+                Algunas son regiones donde nacen nuevas estrellas.
+            </p>
+        </article>
+
+        <article class="fact">
+            <h3>⭐ Estrellas</h3>
+            <p>
+                Esferas gigantes de plasma que producen energía.
+                El Sol es la estrella más cercana a la Tierra.
+            </p>
+        </article>
+
+        <article class="fact">
+            <h3>🚀 Galaxias</h3>
+            <p>
+                Sistemas enormes de estrellas, planetas,
+                gas, polvo y materia oscura unidos por gravedad.
+            </p>
+        </article>
+
+        <article class="fact">
+            <h3>🌠 Meteoros</h3>
+            <p>
+                Son destellos que vemos cuando pequeños fragmentos
+                de material espacial atraviesan la atmósfera terrestre.
+            </p>
+        </article>
+
+        <article class="fact">
+            <h3>🪐 Exoplanetas</h3>
+            <p>
+                Son planetas que orbitan estrellas diferentes al Sol.
+                Se han descubierto miles de ellos.
+            </p>
+        </article>
+
+    </div>
+</section>
+
+<!-- CONSTELACIONES -->
+
+<section id="constelaciones">
+
+    <h2 class="section-title">Constelaciones</h2>
+
+    <p class="subtitle">
+        Figuras imaginadas por la humanidad entre las estrellas.
+    </p>
+
+    <div class="constellation-grid">
+
+        <article class="constellation">
+            <div class="symbol">✨</div>
+            <h3>Orión</h3>
+            <p>
+                Una de las constelaciones más reconocibles.
+                Destaca por las tres estrellas que forman
+                su cinturón.
+            </p>
+        </article>
+
+        <article class="constellation">
+            <div class="symbol">⭐</div>
+            <h3>Casiopea</h3>
+            <p>
+                Sus estrellas forman una figura similar a una W
+                o una M, dependiendo de su posición en el cielo.
+            </p>
+        </article>
+
+        <article class="constellation">
+            <div class="symbol">🌟</div>
+            <h3>Osa Mayor</h3>
+            <p>
+                Contiene un grupo de estrellas que forma
+                un patrón conocido como el Carro.
+            </p>
+        </article>
+
+        <article class="constellation">
+            <div class="symbol">💫</div>
+            <h3>Osa Menor</h3>
+            <p>
+                Incluye Polaris, la Estrella Polar,
+                que se encuentra cerca del polo norte celeste.
+            </p>
+        </article>
+
+    </div>
+</section>
+
+<section id="luna" class="moon-section">
+
+    <h2 class="section-title">Nuestro satélite natural</h2>
+
+    <span class="big-moon">🌕</span>
+
+    <p>
+        La Luna es el único satélite natural de la Tierra.
+        Su gravedad influye en las mareas y sus fases cambian
+        según la posición que ocupa respecto a nuestro planeta
+        y al Sol.
+    </p>
+
+    <p>
+        Desde la Luna, la Tierra parecería un brillante
+        planeta azul suspendido en el cielo.
+    </p>
+
+    <a href="#planetas" class="button">Volver a explorar ✦</a>
+
+</section>
+
+<footer>
+    <p>✦ COSMOS ✦</p>
+</footer>
+</body>
+</html>
